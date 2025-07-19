@@ -46,7 +46,10 @@ https://firms.modaps.eosdis.nasa.gov/download/
 > **Project is a work in progress — actively developing the data pipeline, model, and dashboard components.**
 
 ---
+## 📁 Project Structure.
 
+
+```
 wildfire-risk-prediction/
 │
 ├── data/                  # Raw and processed data files
@@ -78,7 +81,7 @@ wildfire-risk-prediction/
 ├── requirements.txt       # Project dependencies
 ├── .gitignore             # Files to ignore in version control
 └── LICENSE                # Licensing (optional)
-
+```
 ---
 
 Feel free to contribute or suggest features by opening an issue or pull request!
