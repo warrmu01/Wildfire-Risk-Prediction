@@ -32,3 +32,4 @@ dist/
 # OS files
 .DS_Store
 Thumbs.db
+data/FPA_FOD_20170508.sqlite
