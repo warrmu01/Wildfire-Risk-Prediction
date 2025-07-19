@@ -1,10 +1,10 @@
 # Wildfire Risk Prediction Project 🚧 (Work in Progress)
 
 ## 📌 Project Overview
-This project predicts the likelihood of wildfires occurring in specific regions based on historical fire incidents and environmental factors. Using machine learning models, the system forecasts wildfire **risk levels (Low, Medium, High)** based on location, season, and discovery conditions.
+This project predicts the **expected severity or risk level** of wildfires in specific US regions based on historical incidents and environmental factors. Using machine learning models, the system forecasts wildfire **risk levels (Low, Medium, High)** based on location, season, and discovery conditions **if a fire occurs.**
 
 ## 🎯 Objective
-- Predict wildfire risk levels before they occur, using environmental and historical data.
+- Predict wildfire severity risk levels based on environmental and historical data.
 - Enable proactive disaster management and resource allocation.
 - Provide geospatial visualizations to interpret regional wildfire risks.
 
@@ -12,7 +12,7 @@ This project predicts the likelihood of wildfires occurring in specific regions 
 - **Kaggle Wildfire Data:** Historical US wildfire incidents with metadata.  
   [https://www.kaggle.com/datasets/rtatman/188-million-us-wildfires](https://www.kaggle.com/datasets/rtatman/188-million-us-wildfires)
 
-- **(Planned/Optional)**  
+- **(Planned/Optional)**
   - **NASA FIRMS:** Active fire locations and characteristics  
     [https://firms.modaps.eosdis.nasa.gov/download/](https://firms.modaps.eosdis.nasa.gov/download/)
   - **NOAA API:** Historical weather data (temperature, humidity, wind speed, precipitation)  
@@ -43,7 +43,7 @@ This project predicts the likelihood of wildfires occurring in specific regions 
 
 ## 📊 Deliverables
 - Cleaned and processed wildfire dataset.
-- Trained wildfire risk prediction models.
+- Trained wildfire severity risk prediction models.
 - Feature importance insights.
 - **(Planned)** Interactive dashboard for risk prediction visualization.
 
