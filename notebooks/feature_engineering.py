@@ -16,6 +16,7 @@ def prepare_features(df: pd.DataFrame):
     ]
     df = df.drop(columns=drop_cols, errors='ignore')
 
+    # Drop rows with missing essential time information
     time_columns = ['DISCOVERY_TIME', 'CONT_DATE', 'CONT_DOY', 'CONT_TIME']
     existing_time_columns = [col for col in time_columns if col in df.columns]
     df = df.dropna(subset=existing_time_columns)
@@ -35,11 +36,9 @@ def prepare_features(df: pd.DataFrame):
     df['FIRE_DURATION'] = (df['CONT_DATE'] - df['DISCOVERY_DATE']).dt.days
     df['FIRE_DURATION'] = df['FIRE_DURATION'].fillna(-1)
 
-    # Flag missing time BEFORE filling
     df['DISCOVERY_HOUR_MISSING'] = df['DISCOVERY_HOUR'].isna().astype(int)
     df['CONT_HOUR_MISSING'] = df['CONT_HOUR'].isna().astype(int)
 
-    # Impute missing hours
     df['DISCOVERY_HOUR'].fillna(df['DISCOVERY_HOUR'].median(), inplace=True)
     df['CONT_HOUR'].fillna(df['CONT_HOUR'].median(), inplace=True)
 
@@ -76,9 +75,20 @@ def prepare_features(df: pd.DataFrame):
 
     df['CAUSE_SIMPLE'] = df['STAT_CAUSE_DESCR'].apply(simplify_cause)
 
+    # NEW: Map FIRE_SIZE_CLASS to RISK_LEVEL
+    def map_fire_size_class_to_risk(fire_size_class):
+        if fire_size_class in ['A', 'B']:
+            return 'Low'
+        elif fire_size_class in ['C', 'D', 'E']:
+            return 'Medium'
+        else:
+            return 'High'
+
+    df['RISK_LEVEL'] = df['FIRE_SIZE_CLASS'].apply(map_fire_size_class_to_risk)
+
+    # Scale numeric features
     scale_cols = ['LATITUDE', 'LONGITUDE', 'DISCOVERY_DOY', 'DISCOVERY_HOUR',
                   'CONT_DOY', 'CONT_HOUR', 'FIRE_DURATION']
-
     scaler = StandardScaler()
     df[scale_cols] = scaler.fit_transform(df[scale_cols])
 
