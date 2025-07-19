@@ -3,22 +3,27 @@
 import sqlite3
 import pandas as pd
 
-def load_wildfire_data(db_path='data/FPA_FOD_20170508.sqlite'):
+def load_fire_data(db_path: str) -> pd.DataFrame:
     """
-    Load wildfire data from SQLite database.
-    
+    Loads the Fires data from the SQLite database.
+
     Args:
-        db_path (str): Path to the SQLite database.
+        db_path (str): Path to the SQLite database file.
 
     Returns:
-        pd.DataFrame: Loaded fires data.
+        pd.DataFrame: DataFrame containing the Fires data.
     """
     conn = sqlite3.connect(db_path)
-    fires_df = pd.read_sql('SELECT * FROM Fires', conn)
+    
+    # You can replace 'Fires' with the actual table name
+    query = "SELECT * FROM Fires"
+    df = pd.read_sql_query(query, conn)
+
     conn.close()
-    return fires_df
+    return df
 
 if __name__ == "__main__":
-    df = load_wildfire_data()
-    print("Sample data:")
-    print(df.head())
+    # For testing
+    db_path = 'data/FPA_FOD_20170508.sqlite'
+    fire_data = load_fire_data(db_path)
+    print(fire_data.head())
