@@ -47,4 +47,38 @@ https://firms.modaps.eosdis.nasa.gov/download/
 
 ---
 
+wildfire-risk-prediction/
+│
+├── data/                  # Raw and processed data files
+│    ├── raw/              # Original data files (e.g., SQLite, CSV)
+│    └── processed/        # Cleaned & merged data for modeling
+│
+├── notebooks/             # Jupyter notebooks for EDA, experiments
+│    ├── 01_data_exploration.ipynb
+│    ├── 02_feature_engineering.ipynb
+│    └── 03_model_training.ipynb
+│
+├── src/                   # Python modules/scripts
+│    ├── data_loader.py    # Load and query data
+│    ├── preprocessing.py  # Data cleaning and feature engineering
+│    ├── model.py          # Model training and evaluation
+│    ├── utils.py          # Helper functions
+│    └── visualization.py  # Plots, maps, feature importance
+│
+├── models/                # Saved models (.joblib, .pkl)
+│    └── wildfire_risk_model.joblib
+│
+├── app/                   # Streamlit dashboard
+│    ├── dashboard.py      # Main Streamlit app script
+│    └── requirements.txt  # Libraries needed for deployment
+│
+├── outputs/               # Generated plots, figures, reports
+│
+├── README.md              # Project overview and instructions
+├── requirements.txt       # Project dependencies
+├── .gitignore             # Files to ignore in version control
+└── LICENSE                # Licensing (optional)
+
+---
+
 Feel free to contribute or suggest features by opening an issue or pull request!
