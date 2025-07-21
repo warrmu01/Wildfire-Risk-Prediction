@@ -1,11 +1,11 @@
 import streamlit as st
-import joblib
+from joblib import load, dump
 import numpy as np
 import pandas as pd
 
 # Load the saved model and scaler
-rf_model = joblib.load('models/rf_wildfire_model.pkl')
-scaler = joblib.load('models/scaler.pkl')
+rf_model = load('models/rf_wildfire_model.joblib')
+scaler = load('models/scaler.joblib')
 
 st.title('Wildfire Risk Prediction Dashboard')
 

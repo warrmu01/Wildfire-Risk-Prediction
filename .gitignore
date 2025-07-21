@@ -33,3 +33,6 @@ dist/
 .DS_Store
 Thumbs.db
 data/FPA_FOD_20170508.sqlite
+models/rf_wildfire_model.joblib
+models/scaler.joblib
+
