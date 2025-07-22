@@ -12,7 +12,7 @@ This project predicts the **expected severity or risk level** of wildfires in sp
 - **Kaggle Wildfire Dataset:**  
   [188 Million US Wildfires (Kaggle)](https://www.kaggle.com/datasets/rtatman/188-million-us-wildfires)
 
-- **(Planned / Optional Integrations)**
+- **(Planned Integrations)**
   - **NASA FIRMS:** Active fire locations and characteristics  
     [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/download/)
   - **NOAA API:** Historical weather data (temperature, humidity, wind speed, precipitation)  
