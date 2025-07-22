@@ -1,60 +1,64 @@
-# Wildfire Risk Prediction Project 🚧 (Work in Progress)
+# Wildfire Risk Prediction Project 
 
 ## 📌 Project Overview
 This project predicts the **expected severity or risk level** of wildfires in specific US regions based on historical incidents and environmental factors. Using machine learning models, the system forecasts wildfire **risk levels (Low, Medium, High)** based on location, season, and discovery conditions **if a fire occurs.**
 
 ## 🎯 Objective
-- Predict wildfire severity risk levels based on environmental and historical data.
-- Enable proactive disaster management and resource allocation.
-- Provide geospatial visualizations to interpret regional wildfire risks.
+- Predict wildfire severity risk levels to support proactive disaster management.
+- Enable decision-makers to allocate firefighting resources efficiently.
+- Provide a **Streamlit dashboard** for interactive wildfire risk prediction.
 
 ## 🗂️ Data Sources
-- **Kaggle Wildfire Data:** Historical US wildfire incidents with metadata.  
-  [https://www.kaggle.com/datasets/rtatman/188-million-us-wildfires](https://www.kaggle.com/datasets/rtatman/188-million-us-wildfires)
+- **Kaggle Wildfire Dataset:**  
+  [188 Million US Wildfires (Kaggle)](https://www.kaggle.com/datasets/rtatman/188-million-us-wildfires)
 
-- **(Planned/Optional)**
+- **(Planned / Optional Integrations)**
   - **NASA FIRMS:** Active fire locations and characteristics  
-    [https://firms.modaps.eosdis.nasa.gov/download/](https://firms.modaps.eosdis.nasa.gov/download/)
+    [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/download/)
   - **NOAA API:** Historical weather data (temperature, humidity, wind speed, precipitation)  
-    [https://www.ncdc.noaa.gov/cdo-web/webservices/v2](https://www.ncdc.noaa.gov/cdo-web/webservices/v2)
+    [NOAA API](https://www.ncdc.noaa.gov/cdo-web/webservices/v2)
 
 ## 🧰 Tech Stack
-- **Python:** Data processing, modeling
+- **Python:** Data processing & modeling
 - **Pandas, NumPy:** Data manipulation
 - **Scikit-Learn, XGBoost:** Machine learning models
-- **Matplotlib, Seaborn:** Visualizations
-- **(Optional)** Folium, Plotly: Geospatial visualization
-- **Streamlit (Planned):** Interactive dashboard UI
+- **Matplotlib, Seaborn:** Data visualization
+- **Streamlit:** Interactive web-based prediction dashboard
 
 ## 🛠️ Methodology
-1. Data preparation and cleaning of wildfire datasets.
-2. Feature engineering:
-   - Geolocation: Latitude, Longitude
-   - Temporal: Day of Year, Hour of Day, Season
-   - Ownership and State Encoding
-3. Label transformation:
-   - Converting **FIRE_SIZE_CLASS** into **risk levels**: Low, Medium, High.
-4. Model training:
+1. **Data Preparation:**
+   - Data cleaning and handling missing values.
+   - Feature engineering (location, season, ownership, cause).
+2. **Feature Engineering:**
+   - **Geolocation:** Latitude, Longitude
+   - **Temporal:** Day of Year, Hour of Day, Season
+   - **Categorical:** State, Owner Description, Cause Descriptions
+3. **Label Transformation:**
+   - Mapping **FIRE_SIZE_CLASS** to risk levels: Low, Medium, High.
+4. **Model Training:**
    - Random Forest Classifier
    - XGBoost Classifier
-5. Evaluation:
-   - Accuracy, Precision, Recall, F1-score
+   - SMOTE for balancing classes
+5. **Model Evaluation:**
+   - Metrics: Accuracy, Precision, Recall, F1-Score
    - Feature importance analysis
 
 ## 📊 Deliverables
-- Cleaned and processed wildfire dataset.
-- Trained wildfire severity risk prediction models.
-- Feature importance insights.
-- **(Planned)** Interactive dashboard for risk prediction visualization.
+- Processed wildfire dataset for modeling.
+- Trained wildfire risk prediction model.
+- **Interactive Streamlit dashboard** for live risk level predictions.
+- Feature importance visualization.
 
 ## 🚀 Future Enhancements
 - Integrate real-time weather data via APIs.
-- Include vegetation, drought index, and humidity as features.
-- Deploy a **Streamlit dashboard** with real-time location risk queries.
+- Add vegetation, drought index, and humidity as features.
+- Deploy the Streamlit dashboard to Streamlit Cloud or Hugging Face Spaces.
 - Add time-series forecasting for seasonal wildfire trends.
 
 ## 🗒️ Status
-> **Project is a work in progress — actively developing the data pipeline, model, and dashboard components.**
+> ✅ **MVP Completed:** Model trained and dashboard functional for severity prediction.  
+> 🔄 Further fine-tuning and feature additions in progress.
+
 
 ---
 ## 📁 Project Structure.
@@ -79,7 +83,7 @@ wildfire-risk-prediction/
 │    ├── utils.py          # Helper functions
 │    └── visualization.py  # Plots, maps, feature importance
 │
-├── models/                # Saved models (.joblib, .pkl)
+├── models/                # Saved models (will not be availabel on github because they are too big)
 │    └── wildfire_risk_model.joblib
 │
 ├── app/                   # Streamlit dashboard
