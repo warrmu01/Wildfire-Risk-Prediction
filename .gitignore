@@ -35,4 +35,10 @@ Thumbs.db
 data/FPA_FOD_20170508.sqlite
 models/rf_wildfire_model.joblib
 models/scaler.joblib
+models/cause_simple_encoder.joblib
+models/owner_descr_encoder.joblib
+models/season_encoder.joblib
+models/state_encoder.joblib
+models/stat_cause_descr_encoder.joblib
+
 
