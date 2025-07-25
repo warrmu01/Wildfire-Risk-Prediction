@@ -59,16 +59,16 @@ def prepare_features(df: pd.DataFrame):
 
     df['CAUSE_SIMPLE'] = df['STAT_CAUSE_DESCR'].apply(simplify_cause)
 
-    # Risk level from FIRE_SIZE_CLASS
-    def map_fire_size_class_to_risk(fire_size_class):
-        if fire_size_class in ['A', 'B']:
-            return 'Low'
-        elif fire_size_class in ['C', 'D', 'E']:
-            return 'Medium'
-        else:
-            return 'High'
+    # # Risk level from FIRE_SIZE_CLASS
+    # def map_fire_size_class_to_risk(fire_size_class):
+    #     if fire_size_class in ['A', 'B']:
+    #         return 'Low'
+    #     elif fire_size_class in ['C', 'D', 'E']:
+    #         return 'Medium'
+    #     else:
+    #         return 'High'
 
-    df['RISK_LEVEL'] = df['FIRE_SIZE_CLASS'].apply(map_fire_size_class_to_risk)
+    # df['RISK_LEVEL'] = df['FIRE_SIZE_CLASS'].apply(map_fire_size_class_to_risk)
 
     # Label encode categorical features
     label_cols = ['STATE', 'STAT_CAUSE_DESCR', 'OWNER_DESCR', 'SEASON', 'CAUSE_SIMPLE']
