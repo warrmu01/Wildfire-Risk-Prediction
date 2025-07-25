@@ -70,6 +70,8 @@ def prepare_features(df: pd.DataFrame):
 
     # df['RISK_LEVEL'] = df['FIRE_SIZE_CLASS'].apply(map_fire_size_class_to_risk)
 
+    df['FIRE_SIZE'] = np.log1p(df['FIRE_SIZE'])  # target = 'FIRE_SIZE_LOG'
+
     # Label encode categorical features
     label_cols = ['STATE', 'STAT_CAUSE_DESCR', 'OWNER_DESCR', 'SEASON', 'CAUSE_SIMPLE']
     label_encoders = {}
@@ -79,8 +81,8 @@ def prepare_features(df: pd.DataFrame):
         label_encoders[col] = le
 
     # Scaling numerical features
-    scale_cols = ['LATITUDE', 'LONGITUDE', 'DISCOVERY_DOY', 'DISCOVERY_HOUR']
-    scaler = StandardScaler()
-    df[scale_cols] = scaler.fit_transform(df[scale_cols])
+    # scale_cols = ['LATITUDE', 'LONGITUDE', 'DISCOVERY_DOY', 'DISCOVERY_HOUR']
+    # scaler = StandardScaler()
+    # df[scale_cols] = scaler.fit_transform(df[scale_cols])
 
-    return df, scaler, label_encoders
+    return df, label_encoders
