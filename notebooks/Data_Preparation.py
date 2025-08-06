@@ -1,11 +1,10 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 def prepare_features(df: pd.DataFrame):
     """
-    Perform feature engineering on the wildfire dataset.
-    Returns processed dataframe, scaler, and label encoders.
+    Perform wildfire-specific feature engineering.
+    Returns processed dataframe ready for the ML pipeline.
     """
 
     # Drop columns with excessive missing values
@@ -17,7 +16,7 @@ def prepare_features(df: pd.DataFrame):
     ]
     df = df.drop(columns=drop_cols, errors='ignore')
 
-    # Parse times
+    # Parse DISCOVERY_HOUR
     def time_to_hour(time_str):
         if pd.isna(time_str):
             return np.nan
@@ -27,9 +26,10 @@ def prepare_features(df: pd.DataFrame):
     df['DISCOVERY_HOUR'] = df['DISCOVERY_TIME'].apply(time_to_hour)
     df['DISCOVERY_HOUR'].fillna(df['DISCOVERY_HOUR'].median(), inplace=True)
 
+    # Convert DISCOVERY_DATE from Julian to datetime
     df['DISCOVERY_DATE'] = pd.to_datetime(df['DISCOVERY_DATE'], unit='D', origin='julian')
     
-    # Season extraction
+    # Extract SEASON
     def get_season(date):
         if pd.isnull(date):
             return 'Unknown'
@@ -59,30 +59,12 @@ def prepare_features(df: pd.DataFrame):
 
     df['CAUSE_SIMPLE'] = df['STAT_CAUSE_DESCR'].apply(simplify_cause)
 
-    # # Risk level from FIRE_SIZE_CLASS
-    # def map_fire_size_class_to_risk(fire_size_class):
-    #     if fire_size_class in ['A', 'B']:
-    #         return 'Low'
-    #     elif fire_size_class in ['C', 'D', 'E']:
-    #         return 'Medium'
-    #     else:
-    #         return 'High'
+    # Log-transform target
+    df['FIRE_SIZE'] = np.log1p(df['FIRE_SIZE'])
 
-    # df['RISK_LEVEL'] = df['FIRE_SIZE_CLASS'].apply(map_fire_size_class_to_risk)
+    # Ensure categorical columns are strings (for OneHotEncoder later)
+    categorical_cols = ['STATE', 'STAT_CAUSE_DESCR', 'OWNER_DESCR', 'SEASON', 'CAUSE_SIMPLE']
+    for col in categorical_cols:
+        df[col] = df[col].astype(str)
 
-    df['FIRE_SIZE'] = np.log1p(df['FIRE_SIZE'])  # target = 'FIRE_SIZE_LOG'
-
-    # Label encode categorical features
-    label_cols = ['STATE', 'STAT_CAUSE_DESCR', 'OWNER_DESCR', 'SEASON', 'CAUSE_SIMPLE']
-    label_encoders = {}
-    for col in label_cols:
-        le = LabelEncoder()
-        df[col] = le.fit_transform(df[col].astype(str))
-        label_encoders[col] = le
-
-    # Scaling numerical features
-    # scale_cols = ['LATITUDE', 'LONGITUDE', 'DISCOVERY_DOY', 'DISCOVERY_HOUR']
-    # scaler = StandardScaler()
-    # df[scale_cols] = scaler.fit_transform(df[scale_cols])
-
-    return df, label_encoders
+    return df
