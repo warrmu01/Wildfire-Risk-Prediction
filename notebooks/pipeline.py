@@ -2,27 +2,30 @@
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import OrdinalEncoder
 
-def create_wildfire_pipeline(numeric_features, categorical_features):
+def create_wildfire_pipeline(numeric_features, categorical_features, *, encoding="ordinal"):
     """
-    Creates a preprocessing pipeline for wildfire regression.
-    - Scales numeric features
-    - One-hot encodes categorical features
+    encoding: "ordinal" (best for trees) or "onehot" (for linear models)
     """
 
-    numeric_transformer = Pipeline(steps=[
-        ('scaler', StandardScaler())
-    ])
+    # Trees don’t need scaling, but harmless if kept. You can drop scaler if you want.
+    num = Pipeline(steps=[('scaler', StandardScaler())])
 
-    categorical_transformer = Pipeline(steps=[
-        ('onehot', OneHotEncoder(handle_unknown='ignore'))
-    ])
+    if encoding == "ordinal":
+        cat = Pipeline(steps=[
+            ('enc', OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1))
+        ])
+    else:
+        from sklearn.preprocessing import OneHotEncoder
+        cat = Pipeline(steps=[
+            ('enc', OneHotEncoder(handle_unknown='ignore', sparse_output=True))
+        ])
 
     preprocessor = ColumnTransformer(
         transformers=[
-            ('num', numeric_transformer, numeric_features),
-            ('cat', categorical_transformer, categorical_features)
+            ('num', num, numeric_features),
+            ('cat', cat, categorical_features)
         ]
     )
-
     return preprocessor
